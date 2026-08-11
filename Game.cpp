@@ -26,11 +26,13 @@ void Game::Reset()
 	int theWidth = 10;
 	int theHeight = 2;
 	int theY = 5;
+	int theHealth = 3;
 
 	for (int i = 0; i < 5; i++)
 	{
 		Box BrickTemp;
 
+		BrickTemp.health = theHealth;
 		BrickTemp.width = theWidth;
 		BrickTemp.height = theHeight;
 		BrickTemp.x_position = theX;
@@ -94,14 +96,33 @@ void Game::Render() const
 void Game::CheckCollision()
 {
 	// TODO #4 - Update collision to check all bricks
-	
-	if (brick.Contains(ball.x_position + ball.x_velocity, ball.y_position + ball.y_velocity))
+	if (ball.y_position >= WINDOW_HEIGHT - 1)
 	{
-		brick.color = ConsoleColor(brick.color - 1);
+		ball.moving = false;
+		return;
+	}
+	if (brick.empty())
+	{
+		ball.moving = false;
+		return;
+	}
+	for (int i = brick.size() - 1; i >= 0; i--)
+	{
+		int nextBallX = ball.x_position + ball.x_velocity;
+		int nextBallY = ball.y_position + ball.y_velocity;
+
+
+	if (brick[i].Contains(nextBallX, nextBallY))
+	{
 		ball.y_velocity *= -1;
+		brick[i].color = (ConsoleColor)(brick[i].color - 1);
+		
 
 		// TODO #5 - If the ball hits the same brick 3 times (color == black), remove it from the vector
-
+		if (brick[i].color == ConsoleColor::Black || brick[i].color == 0)
+		{
+			brick.erase(brick.begin() + i);
+		}
 	}
 
 	// TODO #6 - If no bricks remain, pause ball and display (render) victory text with R to reset
