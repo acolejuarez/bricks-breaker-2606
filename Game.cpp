@@ -20,12 +20,27 @@ void Game::Reset()
 	ResetBall();
 
 	// TODO #2 - Add this brick and 4 more bricks to the vector
-	brick.width = 10;
-	brick.height = 2;
-	brick.x_position = 0;
-	brick.y_position = 5;
-	brick.doubleThick = true;
-	brick.color = ConsoleColor::DarkGreen;
+	brick.clear();
+
+	int theX = 0;
+	int theWidth = 10;
+	int theHeight = 2;
+	int theY = 5;
+
+	for (int i = 0; i < 5; i++)
+	{
+		Box BrickTemp;
+
+		BrickTemp.width = theWidth;
+		BrickTemp.height = theHeight;
+		BrickTemp.x_position = theX;
+		BrickTemp.y_position = theY;
+		BrickTemp.doubleThick = true;
+		BrickTemp.color = ConsoleColor::DarkGreen;
+
+		BrickTemp.x_position = theX + (i * theWidth);
+		brick.push_back(BrickTemp);
+	}
 }
 
 void Game::ResetBall()
@@ -69,14 +84,17 @@ void Game::Render() const
 	ball.Draw();
 
 	// TODO #3 - Update render to render all bricks
-	brick.Draw();
-
+	for (int i = 0; i < brick.size(); i++)
+	{
+		brick[i].Draw();
+	}
 	Console::Lock(false);
 }
 
 void Game::CheckCollision()
 {
 	// TODO #4 - Update collision to check all bricks
+	
 	if (brick.Contains(ball.x_position + ball.x_velocity, ball.y_position + ball.y_velocity))
 	{
 		brick.color = ConsoleColor(brick.color - 1);
