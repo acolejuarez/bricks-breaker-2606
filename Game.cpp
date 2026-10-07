@@ -98,9 +98,9 @@ void Game::Render() const
 	ball.Draw();
 
 	// TODO #3 - Update render to render all bricks
-	for (int i = 0; i < brick.size(); i++)
+	for (const auto& singleBrick : brick)
 	{
-		brick[i].Draw();
+		singleBrick.Draw();
 	}
 
 	int midX = WINDOW_WIDTH / 2;
