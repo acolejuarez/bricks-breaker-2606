@@ -138,6 +138,12 @@ void Game::CheckCollision()
 		int nextBallX = ball.x_position + ball.x_velocity;
 		int nextBallY = ball.y_position + ball.y_velocity;
 
+		if (ball.x_position >= brick[i].x_position &&
+			ball.x_position < brick[i].x_position + brick[i].width &&
+			ball.y_position >= brick[i].y_position &&
+			ball.y_position < brick[i].y_position + brick[i].height)
+	
+
 
 		if (brick[i].Contains(nextBallX, nextBallY))
 		{
