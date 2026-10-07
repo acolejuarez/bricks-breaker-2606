@@ -1,5 +1,7 @@
 #include "stdafx.h"
 #include "Game.h"
+#include "Box.h"
+
 
 Game::Game()
 {
@@ -21,6 +23,16 @@ void Game::Reset()
 
 	// TODO #2 - Add this brick and 4 more bricks to the vector
 	brick.clear();
+
+	Box singleBrick;
+	singleBrick.width = 10;
+	singleBrick.height = 2;
+	singleBrick.y_position = 5;
+
+	for (int i = 0; i < 5; i++) {
+		singleBrick.x_position = 15 + (i * 12);
+		brick.push_back(singleBrick);
+	}
 
 	int theX = 0;
 	int theWidth = 10;
