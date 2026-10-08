@@ -164,6 +164,7 @@ void Game::CheckCollision()
 
 	if (brick.empty())
 	{
+
 		ball.moving = false;
 		return;
 	}
